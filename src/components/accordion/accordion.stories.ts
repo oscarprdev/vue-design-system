@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import { AccordionRoot, AccordionItem, AccordionTrigger, AccordionContent } from './index'
+import { Plus } from '@/components/icons'
 
 const meta: Meta<typeof AccordionRoot> = {
   title: 'Components/Accordion',
@@ -293,7 +294,7 @@ export const CustomIcon: Story = {
     variant: 'bordered',
   },
   render: args => ({
-    components: { AccordionRoot, AccordionItem, AccordionTrigger, AccordionContent },
+    components: { AccordionRoot, AccordionItem, AccordionTrigger, AccordionContent, Plus },
     setup() {
       return { args }
     },
@@ -303,22 +304,10 @@ export const CustomIcon: Story = {
           <AccordionTrigger>
             What is your return policy?
             <template #icon="{ isOpen }">
-              <svg
-                :class="['transition-transform duration-300 text-gray-500', { 'rotate-90': isOpen }]"
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.5 5L12.5 10L7.5 15"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
+              <Plus
+                :class="['transition-transform duration-300 text-gray-500', { 'rotate-45': isOpen }]"
+                :size="20"
+              />
             </template>
           </AccordionTrigger>
           <AccordionContent>
@@ -329,9 +318,10 @@ export const CustomIcon: Story = {
           <AccordionTrigger>
             How long does shipping take?
             <template #icon="{ isOpen }">
-              <span :class="['transition-transform duration-300', { 'rotate-180': isOpen }]">
-                {{ isOpen ? '−' : '+' }}
-              </span>
+              <Plus
+                :class="['transition-transform duration-300 text-gray-500', { 'rotate-45': isOpen }]"
+                :size="20"
+              />
             </template>
           </AccordionTrigger>
           <AccordionContent>

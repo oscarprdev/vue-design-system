@@ -35,9 +35,10 @@
   --spacing-6: 1.5rem;
 
   /* Border Radius */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
 
   /* Typography */
   --font-size-sm: 0.875rem;
@@ -52,4 +53,3 @@
   --focus-ring-width: 2px;
   --focus-ring-offset: 2px;
 }
-

@@ -2,7 +2,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost'
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
 export const buttonStyles = {
-  base: 'font-medium rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed',
+  base: 'font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed',
 
   variants: {
     primary: 'bg-black text-white hover:bg-gray-800 focus:ring-gray-500',
@@ -22,10 +22,5 @@ export const buttonStyles = {
  * Get button classes based on variant and size
  */
 export function getButtonClasses(variant: ButtonVariant = 'primary', size: ButtonSize = 'md'): string {
-  return [
-    buttonStyles.base,
-    buttonStyles.variants[variant],
-    buttonStyles.sizes[size],
-  ].join(' ')
+  return [buttonStyles.base, buttonStyles.variants[variant], buttonStyles.sizes[size]].join(' ')
 }
-

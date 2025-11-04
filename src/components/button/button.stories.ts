@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
-import { Button } from './index'
+import Button from './button.vue'
+import { Loader } from '@/components/icons'
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -31,7 +32,7 @@ export const Primary: Story = {
   args: {
     variant: 'primary',
   },
-  render: (args) => ({
+  render: args => ({
     components: { Button },
     setup() {
       return { args }
@@ -44,7 +45,7 @@ export const Secondary: Story = {
   args: {
     variant: 'secondary',
   },
-  render: (args) => ({
+  render: args => ({
     components: { Button },
     setup() {
       return { args }
@@ -57,7 +58,7 @@ export const Outline: Story = {
   args: {
     variant: 'outline',
   },
-  render: (args) => ({
+  render: args => ({
     components: { Button },
     setup() {
       return { args }
@@ -70,7 +71,7 @@ export const Ghost: Story = {
   args: {
     variant: 'ghost',
   },
-  render: (args) => ({
+  render: args => ({
     components: { Button },
     setup() {
       return { args }
@@ -83,7 +84,7 @@ export const Small: Story = {
   args: {
     size: 'sm',
   },
-  render: (args) => ({
+  render: args => ({
     components: { Button },
     setup() {
       return { args }
@@ -96,7 +97,7 @@ export const Large: Story = {
   args: {
     size: 'lg',
   },
-  render: (args) => ({
+  render: args => ({
     components: { Button },
     setup() {
       return { args }
@@ -109,7 +110,7 @@ export const Disabled: Story = {
   args: {
     disabled: true,
   },
-  render: (args) => ({
+  render: args => ({
     components: { Button },
     setup() {
       return { args }
@@ -145,3 +146,36 @@ export const AllSizes: Story = {
   }),
 }
 
+export const Loading: Story = {
+  render: () => ({
+    components: { Button, Loader },
+    template: `
+      <div class="flex gap-4 flex-wrap">
+        <Button variant="primary">
+          <span class="flex items-center gap-2">
+            <Loader :size="16" />
+            <span>Loading...</span>
+          </span>
+        </Button>
+        <Button variant="secondary">
+          <span class="flex items-center gap-2">
+            <Loader :size="16" />
+            <span>Loading...</span>
+          </span>
+        </Button>
+        <Button variant="outline">
+          <span class="flex items-center gap-2">
+            <Loader :size="16" />
+            <span>Loading...</span>
+          </span>
+        </Button>
+        <Button variant="primary" disabled>
+          <span class="flex items-center gap-2">
+            <Loader :size="16" />
+            <span>Loading...</span>
+          </span>
+        </Button>
+      </div>
+    `,
+  }),
+}
