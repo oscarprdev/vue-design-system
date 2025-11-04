@@ -18,3 +18,6 @@ export type { ErrorProps } from './error.vue'
 
 export { default as Loader } from './loader.vue'
 export type { LoaderProps } from './loader.vue'
+
+export { default as Bell } from './bell.vue'
+export type { BellProps } from './bell.vue'
