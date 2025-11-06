@@ -1,6 +1,9 @@
 export { default as ArrowDownIcon } from './arrow-down.vue'
 export type { ArrowDownProps as ArrowDownIconProps } from './arrow-down.vue'
 
+export { default as ArrowRightIcon } from './arrow-right.vue'
+export type { ArrowRightProps as ArrowRightIconProps } from './arrow-right.vue'
+
 export { default as PlusIcon } from './plus.vue'
 export type { PlusProps as PlusIconProps } from './plus.vue'
 

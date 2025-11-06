@@ -109,6 +109,26 @@ A badge component for displaying status, labels, and tags with optional icons.
 </Badge>
 ```
 
+### Breadcrumb
+
+A breadcrumb component for displaying navigation paths with collapsible items.
+
+**Props:** `items` (array of `BreadcrumbItem`)
+**BreadcrumbItem Type:** `{ id: string, text: string, visible: boolean }`
+**Events:** `@click` (emits the `id` of the clicked item)
+**Features:** Hover effects on text, ellipsis for hidden items, keyboard navigation
+
+```vue
+<Breadcrumb
+  :items="[
+    { id: 'home', text: 'Home', visible: true },
+    { id: 'hidden', text: 'Hidden', visible: false },
+    { id: 'current', text: 'Current Page', visible: true },
+  ]"
+  @click="handleBreadcrumbClick"
+/>
+```
+
 ## Tech Stack
 
 - Vue 3
