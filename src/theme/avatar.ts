@@ -1,0 +1,40 @@
+export type AvatarSize = 'sm' | 'md' | 'lg'
+
+export const avatarStyles = {
+  base: 'inline-flex items-center justify-center rounded-full overflow-hidden bg-stone-200 text-stone-700 font-medium select-none',
+
+  sizes: {
+    sm: 'w-8 h-8 text-xs',
+    md: 'w-12 h-12 text-sm',
+    lg: 'w-16 h-16 text-base',
+  } as Record<AvatarSize, string>,
+
+  image: 'w-full h-full object-cover',
+
+  fallback: 'flex items-center justify-center w-full h-full uppercase',
+}
+
+/**
+ * Get avatar classes with size and optional border color
+ */
+export function getAvatarClasses(size: AvatarSize = 'md', borderColor?: string): string {
+  const classes = [avatarStyles.base, avatarStyles.sizes[size]]
+
+  if (borderColor) {
+    classes.push('ring-2')
+  }
+
+  return classes.join(' ')
+}
+
+/**
+ * Get avatar style object for border color
+ */
+export function getAvatarStyle(borderColor?: string): Record<string, string> {
+  if (borderColor) {
+    return {
+      '--tw-ring-color': borderColor,
+    }
+  }
+  return {}
+}
