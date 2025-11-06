@@ -2,10 +2,7 @@
   <button :class="triggerClasses" @click="handleClick" :aria-expanded="accordionItem.isOpen.value">
     <slot />
     <slot name="icon" :isOpen="accordionItem.isOpen.value">
-      <ArrowDown
-        :class="[accordionStyles.icon, { 'rotate-180': accordionItem.isOpen.value }]"
-        :size="20"
-      />
+      <ArrowDownIcon :class="[accordionStyles.icon, { 'rotate-180': accordionItem.isOpen.value }]" :size="20" />
     </slot>
   </button>
 </template>
@@ -13,7 +10,7 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import { accordionStyles, getAccordionTriggerClasses, type AccordionVariant } from '@/theme/accordion'
-import { ArrowDown } from '@/components/icons'
+import { ArrowDownIcon } from '@/components/icons'
 import type { ComputedRef } from 'vue'
 
 const accordion = inject<{

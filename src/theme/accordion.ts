@@ -33,18 +33,12 @@ export const accordionStyles = {
  * Get accordion item classes based on variant
  */
 export function getAccordionItemClasses(variant: AccordionVariant = 'default'): string {
-  return [
-    accordionStyles.item.base,
-    accordionStyles.item.variants[variant],
-  ].join(' ')
+  return [accordionStyles.item.base, accordionStyles.item.variants[variant]].join(' ')
 }
 
 /**
  * Get accordion trigger classes based on variant
  */
 export function getAccordionTriggerClasses(variant: AccordionVariant = 'default'): string {
-  return [
-    accordionStyles.trigger.base,
-    accordionStyles.trigger.variants[variant],
-  ].join(' ')
+  return [accordionStyles.trigger.base, accordionStyles.trigger.variants[variant]].join(' ')
 }

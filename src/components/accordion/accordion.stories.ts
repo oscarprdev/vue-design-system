@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import { AccordionRoot, AccordionItem, AccordionTrigger, AccordionContent } from './index'
-import { Plus } from '@/components/icons'
+import { PlusIcon } from '@/components/icons'
 
 const meta: Meta<typeof AccordionRoot> = {
   title: 'Components/Accordion',
@@ -294,7 +294,7 @@ export const CustomIcon: Story = {
     variant: 'bordered',
   },
   render: args => ({
-    components: { AccordionRoot, AccordionItem, AccordionTrigger, AccordionContent, Plus },
+    components: { AccordionRoot, AccordionItem, AccordionTrigger, AccordionContent, PlusIcon },
     setup() {
       return { args }
     },
@@ -304,7 +304,7 @@ export const CustomIcon: Story = {
           <AccordionTrigger>
             What is your return policy?
             <template #icon="{ isOpen }">
-              <Plus
+              <PlusIcon
                 :class="['transition-transform duration-300 text-gray-500', { 'rotate-45': isOpen }]"
                 :size="20"
               />
@@ -318,7 +318,7 @@ export const CustomIcon: Story = {
           <AccordionTrigger>
             How long does shipping take?
             <template #icon="{ isOpen }">
-              <Plus
+              <PlusIcon
                 :class="['transition-transform duration-300 text-gray-500', { 'rotate-45': isOpen }]"
                 :size="20"
               />

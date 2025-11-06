@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Alert from './alert.vue'
-import { Bell } from '@/components/icons'
+import { BellIcon } from '@/components/icons'
 
 const meta: Meta<typeof Alert> = {
   title: 'Components/Alert',
@@ -138,14 +138,14 @@ export const CustomIcon: Story = {
     description: 'This alert uses a custom icon via the icon slot.',
   },
   render: args => ({
-    components: { Alert, Bell },
+    components: { Alert, BellIcon },
     setup() {
       return { args }
     },
     template: `
       <Alert v-bind="args">
         <template #icon>
-          <Bell :size="20" />
+          <BellIcon :size="20" />
         </template>
       </Alert>
     `,

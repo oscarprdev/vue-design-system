@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import Button from './button.vue'
-import { Loader } from '@/components/icons'
+import { LoaderIcon } from '@/components/icons'
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
@@ -148,30 +148,30 @@ export const AllSizes: Story = {
 
 export const Loading: Story = {
   render: () => ({
-    components: { Button, Loader },
+    components: { Button, LoaderIcon },
     template: `
       <div class="flex gap-4 flex-wrap">
         <Button variant="primary">
           <span class="flex items-center gap-2">
-            <Loader :size="16" />
+            <LoaderIcon :size="16" />
             <span>Loading...</span>
           </span>
         </Button>
         <Button variant="secondary">
           <span class="flex items-center gap-2">
-            <Loader :size="16" />
+            <LoaderIcon :size="16" />
             <span>Loading...</span>
           </span>
         </Button>
         <Button variant="outline">
           <span class="flex items-center gap-2">
-            <Loader :size="16" />
+            <LoaderIcon :size="16" />
             <span>Loading...</span>
           </span>
         </Button>
         <Button variant="primary" disabled>
           <span class="flex items-center gap-2">
-            <Loader :size="16" />
+            <LoaderIcon :size="16" />
             <span>Loading...</span>
           </span>
         </Button>

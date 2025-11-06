@@ -1,15 +1,7 @@
 <template>
   <div :class="accordionStyles.container">
-    <div
-      v-for="(item, index) in items"
-      :key="index"
-      :class="itemClasses"
-    >
-      <button
-        :class="triggerClasses"
-        @click="toggle(index)"
-        :aria-expanded="isOpen(index)"
-      >
+    <div v-for="(item, index) in items" :key="index" :class="itemClasses">
+      <button :class="triggerClasses" @click="toggle(index)" :aria-expanded="isOpen(index)">
         <span>{{ item.title }}</span>
         <svg
           :class="[accordionStyles.icon, { 'rotate-180': isOpen(index) }]"
@@ -32,10 +24,7 @@
         :class="accordionStyles.content.base"
         :style="{ height: isOpen(index) ? contentHeights[index] + 'px' : '0px' }"
       >
-        <div
-          :ref="(el) => setContentRef(el, index)"
-          :class="accordionStyles.content.inner"
-        >
+        <div :ref="el => setContentRef(el, index)" :class="accordionStyles.content.inner">
           {{ item.content }}
         </div>
       </div>
@@ -93,7 +82,7 @@ function isOpen(index: number): boolean {
 
 function toggle(index: number) {
   if (isOpen(index)) {
-    openIndexes.value = openIndexes.value.filter((i) => i !== index)
+    openIndexes.value = openIndexes.value.filter(i => i !== index)
   } else {
     if (props.multiple) {
       openIndexes.value.push(index)
@@ -105,6 +94,6 @@ function toggle(index: number) {
 
 onMounted(async () => {
   await nextTick()
-  contentHeights.value = contentRefs.value.map((ref) => ref?.scrollHeight || 0)
+  contentHeights.value = contentRefs.value.map(ref => ref?.scrollHeight || 0)
 })
 </script>

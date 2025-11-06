@@ -3,10 +3,7 @@
     :class="accordionStyles.content.base"
     :style="{ height: accordionItem.isOpen.value ? contentHeight + 'px' : '0px' }"
   >
-    <div
-      ref="contentRef"
-      :class="accordionStyles.content.inner"
-    >
+    <div ref="contentRef" :class="accordionStyles.content.inner">
       <slot />
     </div>
   </div>
@@ -42,8 +39,11 @@ onMounted(async () => {
 })
 
 // Update height when content changes
-watch(() => accordionItem.isOpen.value, async () => {
-  await nextTick()
-  updateHeight()
-})
+watch(
+  () => accordionItem.isOpen.value,
+  async () => {
+    await nextTick()
+    updateHeight()
+  }
+)
 </script>

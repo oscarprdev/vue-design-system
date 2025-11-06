@@ -6,10 +6,7 @@ import { dirname, resolve } from 'node:path'
 const config: StorybookConfig = {
   stories: ['../src/**/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
 
-  addons: [
-    '@storybook/addon-links',
-    '@chromatic-com/storybook',
-  ],
+  addons: ['@storybook/addon-links', '@chromatic-com/storybook'],
 
   framework: {
     name: '@storybook/vue3-vite',
@@ -18,4 +15,3 @@ const config: StorybookConfig = {
 }
 
 export default config
-

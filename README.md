@@ -41,6 +41,7 @@ npm run build-storybook
 ## Components
 
 ### Button
+
 A versatile button component with multiple variants and sizes.
 
 **Variants:** `primary`, `secondary`, `outline`, `ghost`
@@ -51,6 +52,7 @@ A versatile button component with multiple variants and sizes.
 ```
 
 ### Accordion
+
 A composable accordion component with expandable/collapsible sections.
 
 **Components:** `AccordionRoot`, `AccordionItem`, `AccordionTrigger`, `AccordionContent`
@@ -67,20 +69,18 @@ A composable accordion component with expandable/collapsible sections.
 ```
 
 ### Alert
+
 An alert component for displaying notifications and messages.
 
 **Variants:** `default`, `success`, `warning`, `error`
 **Features:** Title, description, custom icons, custom content
 
 ```vue
-<Alert
-  variant="success"
-  title="Success"
-  description="Your changes have been saved."
-/>
+<Alert variant="success" title="Success" description="Your changes have been saved." />
 ```
 
 ### Avatar
+
 An avatar component for displaying user profile images with fallback support.
 
 **Sizes:** `sm`, `md`, `lg`
@@ -88,12 +88,25 @@ An avatar component for displaying user profile images with fallback support.
 **Features:** Image loading with error handling, fallback text (shows first 2 characters), optional colored border
 
 ```vue
-<Avatar
-  src="https://example.com/avatar.jpg"
-  fallback="JD"
-  size="md"
-  border-color="#3b82f6"
-/>
+<Avatar src="https://example.com/avatar.jpg" fallback="JD" size="md" border-color="#3b82f6" />
+```
+
+### Badge
+
+A badge component for displaying status, labels, and tags with optional icons.
+
+**Variants:** `success`, `error`, `warning`, `info`
+**Props:** `variant`, `outline` (boolean)
+**Slots:** `iconLeft`, `iconRight`, default
+**Features:** Solid and outline styles with customizable left and right icons
+
+```vue
+<Badge variant="success">
+  <template #iconLeft>
+    <TickIcon :size="14" />
+  </template>
+  Completed
+</Badge>
 ```
 
 ## Tech Stack
@@ -103,4 +116,3 @@ An avatar component for displaying user profile images with fallback support.
 - Tailwind CSS v4
 - Storybook
 - Vite
-

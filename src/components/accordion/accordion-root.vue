@@ -32,7 +32,7 @@ function isOpen(value: string): boolean {
 
 function toggle(value: string) {
   if (isOpen(value)) {
-    openItems.value = openItems.value.filter((v) => v !== value)
+    openItems.value = openItems.value.filter(v => v !== value)
   } else {
     if (props.multiple) {
       openItems.value = [...openItems.value, value]

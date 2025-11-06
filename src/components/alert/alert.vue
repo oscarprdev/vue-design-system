@@ -2,10 +2,10 @@
   <div :class="alertClasses" role="alert">
     <div :class="iconClasses">
       <slot name="icon">
-        <Tick v-if="variant === 'success'" :size="20" />
-        <Danger v-else-if="variant === 'warning'" :size="20" />
-        <Error v-else-if="variant === 'error'" :size="20" />
-        <Info v-else :size="20" />
+        <TickIcon v-if="variant === 'success'" :size="20" />
+        <DangerIcon v-else-if="variant === 'warning'" :size="20" />
+        <ErrorIcon v-else-if="variant === 'error'" :size="20" />
+        <InfoIcon v-else :size="20" />
       </slot>
     </div>
     <div :class="alertStyles.content">
@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { alertStyles, getAlertClasses, getAlertIconClasses, type AlertVariant } from '@/theme/alert'
-import { Info, Tick, Danger, Error } from '@/components/icons'
+import { InfoIcon, TickIcon, DangerIcon, ErrorIcon } from '@/components/icons'
 
 export interface AlertProps {
   variant?: AlertVariant

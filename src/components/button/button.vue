@@ -1,10 +1,5 @@
 <template>
-  <button
-    :class="buttonClasses"
-    :disabled="disabled"
-    :type="type"
-    @click="$emit('click', $event)"
-  >
+  <button :class="buttonClasses" :disabled="disabled" :type="type" @click="$emit('click', $event)">
     <slot />
   </button>
 </template>
@@ -35,4 +30,3 @@ const buttonClasses = computed(() => {
   return getButtonClasses(props.variant, props.size)
 })
 </script>
-

@@ -1,12 +1,6 @@
 <template>
   <div :class="avatarClasses" :style="avatarStyle">
-    <img
-      v-if="src && !imageError"
-      :src="src"
-      :alt="alt"
-      :class="avatarStyles.image"
-      @error="handleImageError"
-    />
+    <img v-if="src && !imageError" :src="src" :alt="alt" :class="avatarStyles.image" @error="handleImageError" />
     <div v-else :class="avatarStyles.fallback">
       {{ fallbackText }}
     </div>
