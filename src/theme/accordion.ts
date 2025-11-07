@@ -13,7 +13,7 @@ export const accordionStyles = {
   },
 
   trigger: {
-    base: 'w-full flex items-center justify-between px-4 py-3 text-left text-gray-900 font-medium transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-0 rounded-lg',
+    base: 'w-full flex items-center justify-between px-4 py-3 text-left text-gray-900 font-medium transition-colors hover:bg-gray-50 focus:outline-none rounded-lg',
     variants: {
       default: '',
       bordered: '',
