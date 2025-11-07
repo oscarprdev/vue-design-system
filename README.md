@@ -129,6 +129,27 @@ A breadcrumb component for displaying navigation paths with collapsible items.
 />
 ```
 
+### Card
+
+A card component with customizable header, content, and footer sections.
+
+**Slots:** `header`, `content`, `footer` (all optional)
+**Features:** Clean design with borders and shadows, flexible layout, optional sections
+
+```vue
+<Card>
+  <template #header>
+    <h3 class="text-lg font-semibold">Card Title</h3>
+  </template>
+  <template #content>
+    <p>Card content goes here</p>
+  </template>
+  <template #footer>
+    <Button variant="primary">Action</Button>
+  </template>
+</Card>
+```
+
 ### Checkbox
 
 A checkbox component with custom styling and icons.
