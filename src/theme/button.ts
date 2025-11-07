@@ -2,7 +2,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost'
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
 export const buttonStyles = {
-  base: 'font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed',
+  base: 'font-medium rounded-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed',
 
   variants: {
     primary: 'bg-black text-white hover:bg-gray-800 focus:ring-gray-500',
