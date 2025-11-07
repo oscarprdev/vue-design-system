@@ -1,31 +1,22 @@
 <template>
   <div :class="accordionStyles.container">
-    <div v-for="(item, index) in items" :key="index" :class="itemClasses">
-      <button :class="triggerClasses" @click="toggle(index)" :aria-expanded="isOpen(index)">
-        <span>{{ item.title }}</span>
-        <svg
-          :class="[accordionStyles.icon, { 'rotate-180': isOpen(index) }]"
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M5 7.5L10 12.5L15 7.5"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+    <div v-for="item in items" :key="item.id" :class="itemClasses">
+      <button :class="triggerClasses" @click="toggle(item.id)" :aria-expanded="isOpen(item.id)">
+        <span>{{ item.trigger }}</span>
+        <ArrowDownIcon
+          :class="[accordionStyles.icon, { 'rotate-180': isOpen(item.id) }]"
+          :size="20"
+        />
       </button>
       <div
         :class="accordionStyles.content.base"
-        :style="{ height: isOpen(index) ? contentHeights[index] + 'px' : '0px' }"
+        :style="{ height: isOpen(item.id) ? contentHeights[item.id] + 'px' : '0px' }"
       >
-        <div :ref="el => setContentRef(el, index)" :class="accordionStyles.content.inner">
-          {{ item.content }}
+        <div :ref="el => setContentRef(el, item.id)" :class="accordionStyles.content.inner">
+          <p v-for="(paragraph, idx) in item.content" :key="idx">
+            {{ paragraph }}
+            <br v-if="idx < item.content.length - 1" />
+          </p>
         </div>
       </div>
     </div>
@@ -40,17 +31,19 @@ import {
   getAccordionTriggerClasses,
   type AccordionVariant,
 } from '@/theme/accordion'
+import { ArrowDownIcon } from '@/components/icons'
 
 export interface AccordionItem {
-  title: string
-  content: string
+  id: string
+  trigger: string
+  content: string[]
 }
 
 export interface AccordionProps {
   items: AccordionItem[]
   variant?: AccordionVariant
   multiple?: boolean
-  defaultOpen?: number[]
+  defaultOpen?: string[]
 }
 
 const props = withDefaults(defineProps<AccordionProps>(), {
@@ -59,41 +52,47 @@ const props = withDefaults(defineProps<AccordionProps>(), {
   defaultOpen: () => [],
 })
 
-defineEmits<{
-  change: [openIndexes: number[]]
+const emit = defineEmits<{
+  change: [openIds: string[]]
 }>()
 
-const openIndexes = ref<number[]>(props.defaultOpen)
-const contentHeights = ref<number[]>([])
-const contentRefs = ref<(HTMLElement | null)[]>([])
+const openIds = ref<string[]>(props.defaultOpen)
+const contentHeights = ref<Record<string, number>>({})
+const contentRefs = ref<Record<string, HTMLElement | null>>({})
 
 const itemClasses = computed(() => getAccordionItemClasses(props.variant))
 const triggerClasses = computed(() => getAccordionTriggerClasses(props.variant))
 
-function setContentRef(el: any, index: number) {
+function setContentRef(el: any, id: string) {
   if (el) {
-    contentRefs.value[index] = el as HTMLElement
+    contentRefs.value[id] = el as HTMLElement
   }
 }
 
-function isOpen(index: number): boolean {
-  return openIndexes.value.includes(index)
+function isOpen(id: string): boolean {
+  return openIds.value.includes(id)
 }
 
-function toggle(index: number) {
-  if (isOpen(index)) {
-    openIndexes.value = openIndexes.value.filter(i => i !== index)
+function toggle(id: string) {
+  if (isOpen(id)) {
+    openIds.value = openIds.value.filter(i => i !== id)
   } else {
     if (props.multiple) {
-      openIndexes.value.push(index)
+      openIds.value.push(id)
     } else {
-      openIndexes.value = [index]
+      openIds.value = [id]
     }
   }
+  emit('change', openIds.value)
 }
 
 onMounted(async () => {
   await nextTick()
-  contentHeights.value = contentRefs.value.map(ref => ref?.scrollHeight || 0)
+  props.items.forEach(item => {
+    const ref = contentRefs.value[item.id]
+    if (ref) {
+      contentHeights.value[item.id] = ref.scrollHeight
+    }
+  })
 })
 </script>

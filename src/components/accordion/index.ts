@@ -1,7 +1,3 @@
-export { default as AccordionRoot } from './accordion-root.vue'
-export { default as AccordionItem } from './accordion-item.vue'
-export { default as AccordionTrigger } from './accordion-trigger.vue'
-export { default as AccordionContent } from './accordion-content.vue'
+export { default as Accordion } from './accordion.vue'
 
-export type { AccordionRootProps } from './accordion-root.vue'
-export type { AccordionItemProps } from './accordion-item.vue'
+export type { AccordionItem, AccordionProps } from './accordion.vue'
