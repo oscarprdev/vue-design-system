@@ -62,7 +62,14 @@ const contentRef = ref<HTMLElement | null>(null)
 
 // Positioning
 const placementRef = ref<Placement>(props.placement)
-const { position, isPositioned } = useFloating(triggerRef, contentRef, placementRef, props.offset, isOpen, props.matchWidth)
+const { position, isPositioned } = useFloating(
+  triggerRef,
+  contentRef,
+  placementRef,
+  props.offset,
+  isOpen,
+  props.matchWidth
+)
 
 // Animation state - keeps element mounted during close animation
 const shouldRender = ref(false)
@@ -91,15 +98,11 @@ watch(isOpen, (newValue, oldValue) => {
 })
 
 // Click outside handling - exclude trigger from outside detection
-useClickOutside(
-  contentRef,
-  () => {
-    if (props.closeOnClickOutside && isOpen.value) {
-      isOpen.value = false
-    }
-  },
-  [triggerRef]
-)
+useClickOutside(contentRef, () => {
+  if (props.closeOnClickOutside && isOpen.value) {
+    isOpen.value = false
+  }
+}, [triggerRef])
 
 // Trigger handlers
 const handleTriggerClick = () => {

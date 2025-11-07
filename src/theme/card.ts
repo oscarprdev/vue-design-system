@@ -19,9 +19,7 @@ export const cardStyles = {
  * Get header classes based on options
  */
 export function getCardHeaderClasses(bordered: boolean = true): string {
-  return bordered
-    ? `${cardStyles.header.base} ${cardStyles.header.withBorder}`
-    : cardStyles.header.base
+  return bordered ? `${cardStyles.header.base} ${cardStyles.header.withBorder}` : cardStyles.header.base
 }
 
 /**
