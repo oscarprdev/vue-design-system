@@ -40,7 +40,7 @@ const sampleItems: DropdownItem[] = [
 ]
 
 export const Default: Story = {
-  render: (args) => ({
+  render: args => ({
     components: { Dropdown },
     setup() {
       const selectedValue = ref('')

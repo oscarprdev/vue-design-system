@@ -38,8 +38,8 @@ const isControlled = computed(() => props.open !== undefined)
 
 // Computed open state
 const isOpen = computed({
-  get: () => (isControlled.value ? props.open ?? false : internalOpen.value),
-  set: (value) => {
+  get: () => (isControlled.value ? (props.open ?? false) : internalOpen.value),
+  set: value => {
     if (isControlled.value) {
       emit('update:open', value)
     } else {
@@ -60,13 +60,7 @@ const contentRef = ref<HTMLElement | null>(null)
 
 // Positioning
 const placementRef = ref<Placement>(props.placement)
-const { position, isPositioned } = useFloating(
-  triggerRef,
-  contentRef,
-  placementRef,
-  props.offset,
-  isOpen,
-)
+const { position, isPositioned } = useFloating(triggerRef, contentRef, placementRef, props.offset, isOpen)
 
 // Click outside handling
 useClickOutside(contentRef, () => {
@@ -112,9 +106,9 @@ onUnmounted(() => {
 // Watch placement prop changes
 watch(
   () => props.placement,
-  (newPlacement) => {
+  newPlacement => {
     placementRef.value = newPlacement
-  },
+  }
 )
 
 const popoverClasses = computed(() => getPopoverClasses())
@@ -152,4 +146,3 @@ const popoverClasses = computed(() => getPopoverClasses())
     </Teleport>
   </div>
 </template>
-

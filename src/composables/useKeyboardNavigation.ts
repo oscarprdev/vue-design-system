@@ -14,12 +14,12 @@ export interface NavigableItem {
 export function useKeyboardNavigation<T extends NavigableItem>(
   items: Ref<T[]>,
   onSelect: (item: T) => void,
-  isOpen: Ref<boolean>,
+  isOpen: Ref<boolean>
 ) {
   const highlightedIndex = ref<number>(-1)
 
   // Reset highlighted index when list opens
-  watch(isOpen, (newValue) => {
+  watch(isOpen, newValue => {
     if (newValue) {
       highlightedIndex.value = -1
     }

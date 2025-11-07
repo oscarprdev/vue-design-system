@@ -3,10 +3,7 @@
     <div v-for="item in items" :key="item.id" :class="itemClasses">
       <button :class="triggerClasses" @click="toggle(item.id)" :aria-expanded="isOpen(item.id)">
         <span>{{ item.trigger }}</span>
-        <ArrowDownIcon
-          :class="[accordionStyles.icon, { 'rotate-180': isOpen(item.id) }]"
-          :size="20"
-        />
+        <ArrowDownIcon :class="[accordionStyles.icon, { 'rotate-180': isOpen(item.id) }]" :size="20" />
       </button>
       <div
         :class="accordionStyles.content.base"

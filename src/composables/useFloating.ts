@@ -20,7 +20,7 @@ export function useFloating(
   contentRef: Ref<HTMLElement | null>,
   placement: Ref<Placement>,
   offset: number = 8,
-  isOpen: Ref<boolean>,
+  isOpen: Ref<boolean>
 ) {
   const position = ref<FloatingPosition>({ top: '0px', left: '0px' })
   const isPositioned = ref(false)
@@ -82,7 +82,7 @@ export function useFloating(
   }
 
   // Recalculate position when isOpen changes
-  watch(isOpen, async (newValue) => {
+  watch(isOpen, async newValue => {
     if (newValue) {
       isPositioned.value = false
       // Wait for DOM to update before calculating position

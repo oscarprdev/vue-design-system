@@ -31,10 +31,7 @@ const sampleItems = [
   {
     id: 'item-2',
     trigger: 'How long does shipping take?',
-    content: [
-      'Standard shipping takes 5-7 business days.',
-      'Express shipping is available for 2-3 day delivery.',
-    ],
+    content: ['Standard shipping takes 5-7 business days.', 'Express shipping is available for 2-3 day delivery.'],
   },
   {
     id: 'item-3',

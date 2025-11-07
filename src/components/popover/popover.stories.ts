@@ -30,7 +30,7 @@ export default meta
 type Story = StoryObj<typeof Popover>
 
 export const Default: Story = {
-  render: (args) => ({
+  render: args => ({
     components: { Popover },
     setup() {
       return { args }

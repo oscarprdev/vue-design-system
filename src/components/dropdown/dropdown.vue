@@ -46,7 +46,7 @@ const isOpen = ref(false)
 // Selected value
 const selectedValue = computed({
   get: () => props.modelValue,
-  set: (value) => {
+  set: value => {
     if (value !== undefined) {
       emit('update:modelValue', value)
       emit('change', value)
@@ -56,7 +56,7 @@ const selectedValue = computed({
 
 // Display value
 const displayValue = computed(() => {
-  const selectedItem = props.items.find((item) => item.value === selectedValue.value)
+  const selectedItem = props.items.find(item => item.value === selectedValue.value)
   return selectedItem?.label
 })
 
@@ -74,19 +74,11 @@ const isSelected = (item: DropdownItem) => {
 
 // Keyboard navigation
 const itemsRef = computed(() => props.items)
-const { highlightedIndex, handleKeydown, setHighlightedIndex } = useKeyboardNavigation(
-  itemsRef,
-  selectItem,
-  isOpen,
-)
+const { highlightedIndex, handleKeydown, setHighlightedIndex } = useKeyboardNavigation(itemsRef, selectItem, isOpen)
 
 // Get item classes
 const getItemClasses = (item: DropdownItem, index: number) => {
-  return getDropdownItemClasses(
-    isSelected(item),
-    highlightedIndex.value === index,
-    item.disabled || false,
-  )
+  return getDropdownItemClasses(isSelected(item), highlightedIndex.value === index, item.disabled || false)
 }
 
 // Trigger classes
@@ -104,12 +96,7 @@ const iconClasses = computed(() => {
 </script>
 
 <template>
-  <Popover
-    v-model:open="isOpen"
-    :placement="placement"
-    trigger="click"
-    @close="highlightedIndex = -1"
-  >
+  <Popover v-model:open="isOpen" :placement="placement" trigger="click" @close="highlightedIndex = -1">
     <template #trigger>
       <button :class="triggerClasses" :disabled="disabled" type="button">
         <span :class="placeholderClasses">
@@ -139,9 +126,7 @@ const iconClasses = computed(() => {
         <ul
           :class="dropdownStyles.list"
           role="listbox"
-          :aria-activedescendant="
-            highlightedIndex !== -1 ? `item-${highlightedIndex}` : undefined
-          "
+          :aria-activedescendant="highlightedIndex !== -1 ? `item-${highlightedIndex}` : undefined"
           @keydown="handleKeydown"
           tabindex="0"
         >
@@ -180,4 +165,3 @@ const iconClasses = computed(() => {
     </template>
   </Popover>
 </template>
-
