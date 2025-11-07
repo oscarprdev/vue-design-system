@@ -1,12 +1,13 @@
-export type AvatarSize = 'sm' | 'md' | 'lg'
+export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
 
 export const avatarStyles = {
-  base: 'inline-flex items-center justify-center rounded-full overflow-hidden bg-stone-200 text-stone-700 font-medium select-none',
+  base: 'inline-flex items-center justify-center rounded-full overflow-hidden bg-gray-200 text-gray-700 font-medium select-none',
 
   sizes: {
     sm: 'w-8 h-8 text-xs',
-    md: 'w-12 h-12 text-sm',
-    lg: 'w-16 h-16 text-base',
+    md: 'w-10 h-10 text-sm',
+    lg: 'w-12 h-12 text-base',
+    xl: 'w-16 h-16 text-lg',
   } as Record<AvatarSize, string>,
 
   image: 'w-full h-full object-cover',
@@ -21,7 +22,7 @@ export function getAvatarClasses(size: AvatarSize = 'md', borderColor?: string):
   const classes = [avatarStyles.base, avatarStyles.sizes[size]]
 
   if (borderColor) {
-    classes.push('ring-2')
+    classes.push('ring-2 ring-offset-2')
   }
 
   return classes.join(' ')

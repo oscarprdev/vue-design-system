@@ -7,23 +7,23 @@ export const accordionStyles = {
     base: 'border-b border-gray-200 last:border-b-0',
     variants: {
       default: '',
-      bordered: 'border border-gray-200 rounded-lg mb-2 last:mb-0',
-      filled: 'bg-gray-50 border border-gray-200 rounded-lg mb-2 last:mb-0',
+      bordered: 'border border-gray-200 rounded-lg mb-2 last:mb-0 shadow-sm',
+      filled: 'bg-gray-50 border border-gray-200 rounded-lg mb-2 last:mb-0 shadow-sm',
     } as Record<AccordionVariant, string>,
   },
 
   trigger: {
-    base: 'w-full flex items-center justify-between px-4 py-3 text-left font-medium transition-colors hover:bg-gray-50 focus:outline-none',
+    base: 'w-full flex items-center justify-between px-4 py-3 text-left text-gray-900 font-medium transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-0 rounded-lg',
     variants: {
       default: '',
-      bordered: 'rounded-lg',
-      filled: 'rounded-lg bg-gray-50 hover:bg-gray-100',
+      bordered: '',
+      filled: 'bg-gray-50 hover:bg-gray-100',
     } as Record<AccordionVariant, string>,
   },
 
   content: {
     base: 'overflow-hidden transition-all duration-300',
-    inner: 'px-4 pb-4 pt-2 text-gray-600',
+    inner: 'px-4 pb-4 pt-2 text-gray-600 text-sm',
   },
 
   icon: 'transition-transform duration-300 text-gray-500',

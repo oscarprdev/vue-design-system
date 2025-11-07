@@ -1,22 +1,24 @@
-export type AlertVariant = 'default' | 'success' | 'warning' | 'error'
+export type AlertVariant = 'default' | 'success' | 'warning' | 'error' | 'info'
 
 export const alertStyles = {
-  base: 'rounded-lg p-4 flex gap-3',
+  base: 'rounded-lg p-4 flex gap-3 border shadow-sm',
 
   variants: {
-    default: 'bg-stone-100 text-stone-900 border border-stone-200',
-    success: 'bg-emerald-50 text-emerald-900 border border-emerald-200',
-    warning: 'bg-orange-50 text-orange-900 border border-orange-200',
-    error: 'bg-red-50 text-red-900 border border-red-200',
+    default: 'bg-gray-50 text-gray-900 border-gray-200',
+    success: 'bg-success-50 text-success-900 border-success-200',
+    warning: 'bg-warning-50 text-warning-900 border-warning-200',
+    error: 'bg-error-50 text-error-900 border-error-200',
+    info: 'bg-info-50 text-info-900 border-info-200',
   } as Record<AlertVariant, string>,
 
   icon: {
     base: 'flex-shrink-0 w-5 h-5 mt-0.5',
     variants: {
-      default: 'text-stone-600',
-      success: 'text-emerald-600',
-      warning: 'text-orange-600',
-      error: 'text-red-600',
+      default: 'text-gray-600',
+      success: 'text-success-600',
+      warning: 'text-warning-600',
+      error: 'text-error-600',
+      info: 'text-info-600',
     } as Record<AlertVariant, string>,
   },
 
