@@ -24,3 +24,9 @@ export type { LoaderProps as LoaderIconProps } from './loader.vue'
 
 export { default as BellIcon } from './bell.vue'
 export type { BellProps as BellIconProps } from './bell.vue'
+
+export { default as CheckboxCheckedIcon } from './checkbox-checked.vue'
+export type { CheckboxCheckedProps as CheckboxCheckedIconProps } from './checkbox-checked.vue'
+
+export { default as CheckboxUncheckedIcon } from './checkbox-unchecked.vue'
+export type { CheckboxUncheckedProps as CheckboxUncheckedIconProps } from './checkbox-unchecked.vue'

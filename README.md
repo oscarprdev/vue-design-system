@@ -129,6 +129,18 @@ A breadcrumb component for displaying navigation paths with collapsible items.
 />
 ```
 
+### Checkbox
+
+A checkbox component with custom styling and icons.
+
+**Props:** `label` (optional), `checked` (boolean), `id` (optional)
+**Events:** `@change` (emits the new checked state as boolean)
+**Features:** Custom checkbox icons, accessible with hidden native input, keyboard support
+
+```vue
+<Checkbox label="Accept terms and conditions" :checked="isChecked" @change="handleChange" id="terms" />
+```
+
 ## Tech Stack
 
 - Vue 3
