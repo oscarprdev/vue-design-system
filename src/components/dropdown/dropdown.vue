@@ -78,7 +78,7 @@ const { highlightedIndex, handleKeydown, setHighlightedIndex } = useKeyboardNavi
 
 // Get item classes
 const getItemClasses = (item: DropdownItem, index: number) => {
-  return getDropdownItemClasses(isSelected(item), highlightedIndex.value === index, item.disabled || false)
+  return getDropdownItemClasses(isSelected(item), highlightedIndex.value === index, item.disabled || false, props.size)
 }
 
 // Trigger classes
@@ -96,7 +96,7 @@ const iconClasses = computed(() => {
 </script>
 
 <template>
-  <Popover v-model:open="isOpen" :placement="placement" trigger="click" @close="highlightedIndex = -1">
+  <Popover v-model:open="isOpen" :placement="placement" trigger="click" match-width @close="highlightedIndex = -1">
     <template #trigger>
       <button :class="triggerClasses" :disabled="disabled" type="button">
         <span :class="placeholderClasses">

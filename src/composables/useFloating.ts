@@ -5,6 +5,7 @@ export type Placement = 'top' | 'bottom' | 'left' | 'right'
 export interface FloatingPosition {
   top: string
   left: string
+  width?: string
 }
 
 /**
@@ -14,13 +15,15 @@ export interface FloatingPosition {
  * @param placement - Desired placement of the floating element
  * @param offset - Distance from the trigger in pixels
  * @param isOpen - Whether the floating element is visible
+ * @param matchWidth - Whether the floating element should match trigger width
  */
 export function useFloating(
   triggerRef: Ref<HTMLElement | null>,
   contentRef: Ref<HTMLElement | null>,
   placement: Ref<Placement>,
   offset: number = 8,
-  isOpen: Ref<boolean>
+  isOpen: Ref<boolean>,
+  matchWidth: boolean = false
 ) {
   const position = ref<FloatingPosition>({ top: '0px', left: '0px' })
   const isPositioned = ref(false)
@@ -34,20 +37,23 @@ export function useFloating(
     let top = 0
     let left = 0
 
+    // Use trigger width or content width for calculations
+    const effectiveWidth = matchWidth ? triggerRect.width : contentRect.width
+
     switch (placement.value) {
       case 'top':
         top = triggerRect.top - contentRect.height - offset
-        left = triggerRect.left + (triggerRect.width - contentRect.width) / 2
+        left = matchWidth ? triggerRect.left : triggerRect.left + (triggerRect.width - effectiveWidth) / 2
         break
 
       case 'bottom':
         top = triggerRect.bottom + offset
-        left = triggerRect.left + (triggerRect.width - contentRect.width) / 2
+        left = matchWidth ? triggerRect.left : triggerRect.left + (triggerRect.width - effectiveWidth) / 2
         break
 
       case 'left':
         top = triggerRect.top + (triggerRect.height - contentRect.height) / 2
-        left = triggerRect.left - contentRect.width - offset
+        left = triggerRect.left - effectiveWidth - offset
         break
 
       case 'right':
@@ -63,8 +69,8 @@ export function useFloating(
     // Adjust horizontal position if it goes off screen
     if (left < 0) {
       left = 8 // 8px padding from edge
-    } else if (left + contentRect.width > viewportWidth) {
-      left = viewportWidth - contentRect.width - 8
+    } else if (left + effectiveWidth > viewportWidth) {
+      left = viewportWidth - effectiveWidth - 8
     }
 
     // Adjust vertical position if it goes off screen
@@ -77,6 +83,7 @@ export function useFloating(
     position.value = {
       top: `${top}px`,
       left: `${left}px`,
+      ...(matchWidth && { width: `${triggerRect.width}px` }),
     }
     isPositioned.value = true
   }
@@ -91,9 +98,8 @@ export function useFloating(
       requestAnimationFrame(() => {
         calculatePosition()
       })
-    } else {
-      isPositioned.value = false
     }
+    // Note: Don't reset isPositioned on close to allow close animations to work
   })
 
   // Recalculate on window resize

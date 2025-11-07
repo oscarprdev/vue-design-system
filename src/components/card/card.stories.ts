@@ -14,7 +14,7 @@ export const Default: Story = {
   render: () => ({
     components: { Card },
     template: `
-      <Card>
+      <Card class="w-[500px]">
         <template #header>
           <h3 class="text-lg font-semibold">Card Title</h3>
         </template>
@@ -35,7 +35,7 @@ export const HeaderOnly: Story = {
   render: () => ({
     components: { Card },
     template: `
-      <Card>
+      <Card class="w-[500px]">
         <template #header>
           <h3 class="text-lg font-semibold">Card with Header Only</h3>
         </template>
@@ -48,7 +48,7 @@ export const ContentOnly: Story = {
   render: () => ({
     components: { Card },
     template: `
-      <Card>
+      <Card class="w-[500px]">
         <template #content>
           <p class="text-sm text-gray-600">
             This card only has content, no header or footer.
@@ -63,7 +63,7 @@ export const HeaderAndContent: Story = {
   render: () => ({
     components: { Card },
     template: `
-      <Card>
+      <Card class="w-[500px]">
         <template #header>
           <h3 class="text-lg font-semibold">Product Details</h3>
         </template>
@@ -80,7 +80,7 @@ export const WithButtons: Story = {
   render: () => ({
     components: { Card, Button },
     template: `
-      <Card>
+      <Card class="w-[500px]">
         <template #header>
           <h3 class="text-lg font-semibold">Confirm Action</h3>
         </template>
@@ -104,7 +104,7 @@ export const UserProfile: Story = {
   render: () => ({
     components: { Card, Button },
     template: `
-      <Card>
+      <Card class="w-[500px]">
         <template #header>
           <div class="flex items-center gap-3">
             <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
@@ -145,7 +145,7 @@ export const ProductCard: Story = {
   render: () => ({
     components: { Card, Button },
     template: `
-      <Card>
+      <Card class="w-[500px]">
         <template #header>
           <div class="aspect-video bg-gray-200 -mx-6 -mt-4 mb-4 flex items-center justify-center">
             <span class="text-gray-400">Product Image</span>
@@ -173,7 +173,7 @@ export const MultipleCards: Story = {
   render: () => ({
     components: { Card },
     template: `
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-[500px]">
         <Card>
           <template #header>
             <h3 class="text-lg font-semibold">Card 1</h3>

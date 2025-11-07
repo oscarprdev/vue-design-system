@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { useClickOutside } from '@/composables/useClickOutside'
 import { useFloating, type Placement } from '@/composables/useFloating'
 import { getPopoverClasses } from '@/theme/popover'
@@ -12,6 +12,7 @@ export interface PopoverProps {
   closeOnClickOutside?: boolean
   closeOnEscape?: boolean
   trigger?: 'click' | 'hover' | 'manual'
+  matchWidth?: boolean
 }
 
 const props = withDefaults(defineProps<PopoverProps>(), {
@@ -22,6 +23,7 @@ const props = withDefaults(defineProps<PopoverProps>(), {
   closeOnClickOutside: true,
   closeOnEscape: true,
   trigger: 'click',
+  matchWidth: false,
 })
 
 const emit = defineEmits<{
@@ -60,14 +62,44 @@ const contentRef = ref<HTMLElement | null>(null)
 
 // Positioning
 const placementRef = ref<Placement>(props.placement)
-const { position, isPositioned } = useFloating(triggerRef, contentRef, placementRef, props.offset, isOpen)
+const { position, isPositioned } = useFloating(triggerRef, contentRef, placementRef, props.offset, isOpen, props.matchWidth)
 
-// Click outside handling
-useClickOutside(contentRef, () => {
-  if (props.closeOnClickOutside && isOpen.value) {
-    isOpen.value = false
+// Animation state - keeps element mounted during close animation
+const shouldRender = ref(false)
+const isAnimating = ref(false)
+
+// Computed style values for smooth open/close animations
+const showContent = computed(() => isPositioned.value && isOpen.value && !isAnimating.value)
+
+watch(isOpen, (newValue, oldValue) => {
+  if (newValue) {
+    shouldRender.value = true
+    isAnimating.value = false
+  } else if (oldValue) {
+    // Start close animation
+    isAnimating.value = true
+    // Remove from DOM after animation completes
+    setTimeout(() => {
+      shouldRender.value = false
+      isAnimating.value = false
+      // Reset positioning state for next open
+      nextTick(() => {
+        isPositioned.value = false
+      })
+    }, 150) // Match transition duration
   }
 })
+
+// Click outside handling - exclude trigger from outside detection
+useClickOutside(
+  contentRef,
+  () => {
+    if (props.closeOnClickOutside && isOpen.value) {
+      isOpen.value = false
+    }
+  },
+  [triggerRef]
+)
 
 // Trigger handlers
 const handleTriggerClick = () => {
@@ -129,14 +161,17 @@ const popoverClasses = computed(() => getPopoverClasses())
     <!-- Popover content -->
     <Teleport to="body">
       <div
-        v-if="isOpen"
+        v-if="shouldRender"
         ref="contentRef"
         :class="popoverClasses"
         :style="{
           top: position.top,
           left: position.left,
-          opacity: isPositioned ? '1' : '0',
-          transition: 'opacity 0.1s ease-in-out',
+          width: position.width,
+          opacity: showContent ? '1' : '0',
+          transform: showContent ? 'scale(1)' : 'scale(0.95)',
+          transition: 'opacity 0.15s ease-out, transform 0.15s ease-out',
+          transformOrigin: placement === 'top' ? 'bottom' : 'top',
         }"
         role="dialog"
         aria-modal="false"
