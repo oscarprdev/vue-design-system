@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { getDialogHeaderClasses, dialogStyles } from '../../theme/dialog'
+import type { DialogHeaderProps } from './dialog-header.types'
 
-export interface DialogHeaderProps {
-  showClose?: boolean
-}
-
-withDefaults(defineProps<DialogHeaderProps>(), {
+const props = withDefaults(defineProps<DialogHeaderProps>(), {
   showClose: true,
 })
 
@@ -24,7 +21,7 @@ const handleClose = () => {
       <slot />
     </div>
     <button
-      v-if="showClose"
+      v-if="props.showClose"
       type="button"
       :class="dialogStyles.closeButton"
       aria-label="Close dialog"

@@ -1,3 +1,14 @@
+<script setup lang="ts">
+// 1. Imports
+import type { LoaderProps } from './loader.types'
+
+// 2. Props
+withDefaults(defineProps<LoaderProps>(), {
+  size: 16,
+  color: 'currentColor',
+})
+</script>
+
 <template>
   <svg
     data-testid="geist-icon"
@@ -27,15 +38,3 @@
     </defs>
   </svg>
 </template>
-
-<script setup lang="ts">
-export interface LoaderProps {
-  size?: number | string
-  color?: string
-}
-
-withDefaults(defineProps<LoaderProps>(), {
-  size: 16,
-  color: 'currentColor',
-})
-</script>

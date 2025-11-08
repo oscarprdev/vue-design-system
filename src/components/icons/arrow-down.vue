@@ -1,3 +1,14 @@
+<script setup lang="ts">
+// 1. Imports
+import type { ArrowDownProps } from './arrow-down.types'
+
+// 2. Props
+withDefaults(defineProps<ArrowDownProps>(), {
+  size: 24,
+  color: 'currentColor',
+})
+</script>
+
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" :width="size" :height="size" viewBox="0 0 24 24" fill="none">
     <path
@@ -18,15 +29,3 @@
     />
   </svg>
 </template>
-
-<script setup lang="ts">
-export interface ArrowDownProps {
-  size?: number | string
-  color?: string
-}
-
-withDefaults(defineProps<ArrowDownProps>(), {
-  size: 24,
-  color: 'currentColor',
-})
-</script>

@@ -1,3 +1,14 @@
+<script setup lang="ts">
+// 1. Imports
+import type { PlusProps } from './plus.types'
+
+// 2. Props
+withDefaults(defineProps<PlusProps>(), {
+  size: 24,
+  color: 'currentColor',
+})
+</script>
+
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" :width="size" :height="size" viewBox="0 0 24 24" fill="none">
     <g clip-path="url(#clip0_4418_3716)">
@@ -13,15 +24,3 @@
     </defs>
   </svg>
 </template>
-
-<script setup lang="ts">
-export interface PlusProps {
-  size?: number | string
-  color?: string
-}
-
-withDefaults(defineProps<PlusProps>(), {
-  size: 24,
-  color: 'currentColor',
-})
-</script>

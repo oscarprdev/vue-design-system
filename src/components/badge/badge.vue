@@ -1,3 +1,16 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { badgeStyles, getBadgeClasses } from '@/theme/badge'
+import type { BadgeProps } from './badge.types'
+
+const props = withDefaults(defineProps<BadgeProps>(), {
+  variant: 'info',
+  outline: false,
+})
+
+const badgeClasses = computed(() => getBadgeClasses(props.variant, props.outline))
+</script>
+
 <template>
   <span :class="badgeClasses">
     <span v-if="$slots.iconLeft" :class="badgeStyles.icon">
@@ -9,20 +22,3 @@
     </span>
   </span>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue'
-import { badgeStyles, getBadgeClasses, type BadgeVariant } from '@/theme/badge'
-
-export interface BadgeProps {
-  variant?: BadgeVariant
-  outline?: boolean
-}
-
-const props = withDefaults(defineProps<BadgeProps>(), {
-  variant: 'info',
-  outline: false,
-})
-
-const badgeClasses = computed(() => getBadgeClasses(props.variant, props.outline))
-</script>

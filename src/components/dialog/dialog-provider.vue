@@ -8,25 +8,18 @@ import { getDialogClasses, dialogStyles, type DialogSize } from '../../theme/dia
 
 const { state, close } = useDialog()
 
-// Animation state
 const shouldRender = ref(false)
 const isAnimating = ref(false)
-
-// Refs for composables
 const backdropRef = ref<HTMLElement | null>(null)
 const contentRef = ref<HTMLElement | null>(null)
 
-// Props from dialog options
 const size = computed(() => (state.value.props.size as DialogSize) || 'md')
 const closeOnClickOutside = computed(
   () => state.value.props.closeOnClickOutside !== false // default true
 )
 const closeOnEscape = computed(() => state.value.props.closeOnEscape !== false) // default true
-
-// Computed for animation
 const showContent = computed(() => shouldRender.value && !isAnimating.value && state.value.isOpen)
 
-// Animation watcher
 watch(
   () => state.value.isOpen,
   (newValue, oldValue) => {
@@ -49,14 +42,18 @@ watch(
   }
 )
 
-// Click outside handling
+const handleKeydown = (event: KeyboardEvent) => {
+  if (event.key === 'Escape' && closeOnEscape.value) {
+    close()
+  }
+}
+
 useClickOutside(contentRef, () => {
   if (closeOnClickOutside.value && state.value.isOpen) {
     close()
   }
 })
 
-// Focus trap
 const { activate, deactivate } = useFocusTrap(
   contentRef,
   computed(() => state.value.isOpen)
@@ -73,15 +70,7 @@ watch(
   }
 )
 
-// Body scroll lock
 useBodyScrollLock(computed(() => state.value.isOpen))
-
-// Keyboard handling
-const handleKeydown = (event: KeyboardEvent) => {
-  if (event.key === 'Escape' && closeOnEscape.value) {
-    close()
-  }
-}
 </script>
 
 <template>

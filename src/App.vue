@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { Button } from './components/button'
+</script>
+
 <template>
   <div class="min-h-screen bg-gray-50 p-8">
     <div class="max-w-4xl mx-auto">
@@ -30,7 +34,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { Button } from './components/button'
-</script>

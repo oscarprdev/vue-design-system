@@ -1,3 +1,14 @@
+<script setup lang="ts">
+// 1. Imports
+import type { BellProps } from './bell.types'
+
+// 2. Props
+withDefaults(defineProps<BellProps>(), {
+  size: 24,
+  color: 'currentColor',
+})
+</script>
+
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" :width="size" :height="size" viewBox="0 0 24 24" :fill="color">
     <g clip-path="url(#clip0_4418_8694)">
@@ -17,15 +28,3 @@
     </defs>
   </svg>
 </template>
-
-<script setup lang="ts">
-export interface BellProps {
-  size?: number | string
-  color?: string
-}
-
-withDefaults(defineProps<BellProps>(), {
-  size: 24,
-  color: 'currentColor',
-})
-</script>

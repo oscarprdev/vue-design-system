@@ -1,19 +1,7 @@
-<template>
-  <button :class="buttonClasses" :disabled="disabled" :type="type" @click="$emit('click', $event)">
-    <slot />
-  </button>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue'
-import { getButtonClasses, type ButtonVariant, type ButtonSize } from '@/theme/button'
-
-export interface ButtonProps {
-  variant?: ButtonVariant
-  size?: ButtonSize
-  disabled?: boolean
-  type?: 'button' | 'submit' | 'reset'
-}
+import type { ButtonProps } from './button.types'
+import { getButtonClasses } from '@/theme/button'
 
 const props = withDefaults(defineProps<ButtonProps>(), {
   variant: 'primary',
@@ -22,7 +10,7 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   type: 'button',
 })
 
-defineEmits<{
+const emit = defineEmits<{
   click: [event: MouseEvent]
 }>()
 
@@ -30,3 +18,9 @@ const buttonClasses = computed(() => {
   return getButtonClasses(props.variant, props.size)
 })
 </script>
+
+<template>
+  <button :class="buttonClasses" :disabled="disabled" :type="type" @click="emit('click', $event)">
+    <slot />
+  </button>
+</template>

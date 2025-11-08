@@ -1,23 +1,7 @@
-<template>
-  <div :class="avatarClasses" :style="avatarStyle">
-    <img v-if="src && !imageError" :src="src" :alt="alt" :class="avatarStyles.image" @error="handleImageError" />
-    <div v-else :class="avatarStyles.fallback">
-      {{ fallbackText }}
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { avatarStyles, getAvatarClasses, getAvatarStyle, type AvatarSize } from '@/theme/avatar'
-
-export interface AvatarProps {
-  src?: string
-  fallback?: string
-  borderColor?: string
-  size?: AvatarSize
-  alt?: string
-}
+import { avatarStyles, getAvatarClasses, getAvatarStyle } from '@/theme/avatar'
+import type { AvatarProps } from './avatar.types'
 
 const props = withDefaults(defineProps<AvatarProps>(), {
   size: 'md',
@@ -40,3 +24,12 @@ const handleImageError = () => {
   imageError.value = true
 }
 </script>
+
+<template>
+  <div :class="avatarClasses" :style="avatarStyle">
+    <img v-if="src && !imageError" :src="src" :alt="alt" :class="avatarStyles.image" @error="handleImageError" />
+    <div v-else :class="avatarStyles.fallback">
+      {{ fallbackText }}
+    </div>
+  </div>
+</template>

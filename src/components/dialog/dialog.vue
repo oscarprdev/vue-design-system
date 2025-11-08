@@ -1,17 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
+import type { DialogProps } from './dialog.types'
 import { useClickOutside } from '../../composables/useClickOutside'
 import { useFocusTrap } from '../../composables/useFocusTrap'
 import { useBodyScrollLock } from '../../composables/useBodyScrollLock'
-import { getDialogClasses, dialogStyles, type DialogSize } from '../../theme/dialog'
-
-export interface DialogProps {
-  open?: boolean
-  defaultOpen?: boolean
-  size?: DialogSize
-  closeOnClickOutside?: boolean
-  closeOnEscape?: boolean
-}
+import { getDialogClasses, dialogStyles } from '../../theme/dialog'
 
 const props = withDefaults(defineProps<DialogProps>(), {
   size: 'md',
@@ -25,11 +18,12 @@ const emit = defineEmits<{
   close: []
 }>()
 
-// Internal state
 const internalOpen = ref(props.defaultOpen ?? false)
+const isAnimating = ref(false)
+const contentRef = ref<HTMLElement | null>(null)
 
-// Controlled/uncontrolled pattern
 const isControlled = computed(() => props.open !== undefined)
+
 const isOpen = computed({
   get: () => (isControlled.value ? props.open : internalOpen.value) ?? false,
   set: value => {
@@ -40,23 +34,14 @@ const isOpen = computed({
   },
 })
 
-// Animation state
 const shouldRender = ref(isOpen.value)
-const isAnimating = ref(false)
-
-// Refs for composables
-const contentRef = ref<HTMLElement | null>(null)
-
-// Computed for animation
 const showContent = computed(() => shouldRender.value && !isAnimating.value && isOpen.value)
 
-// Animation watcher
 watch(isOpen, (newValue, oldValue) => {
   if (newValue) {
     shouldRender.value = true
     isAnimating.value = true
     emit('open')
-    // Use double rAF to ensure browser has painted the initial state
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         isAnimating.value = false
@@ -68,24 +53,9 @@ watch(isOpen, (newValue, oldValue) => {
     setTimeout(() => {
       shouldRender.value = false
       isAnimating.value = false
-    }, 150) // Match transition duration
+    }, 150)
   }
 })
-
-// Close handler
-const close = () => {
-  isOpen.value = false
-}
-
-// Click outside handling
-useClickOutside(contentRef, () => {
-  if (props.closeOnClickOutside && isOpen.value) {
-    close()
-  }
-})
-
-// Focus trap
-const { activate, deactivate } = useFocusTrap(contentRef, isOpen)
 
 watch(isOpen, open => {
   if (open) {
@@ -95,15 +65,25 @@ watch(isOpen, open => {
   }
 })
 
-// Body scroll lock
-useBodyScrollLock(isOpen)
+const close = () => {
+  isOpen.value = false
+}
 
-// Keyboard handling
 const handleKeydown = (event: KeyboardEvent) => {
   if (event.key === 'Escape' && props.closeOnEscape) {
     close()
   }
 }
+
+useClickOutside(contentRef, () => {
+  if (props.closeOnClickOutside && isOpen.value) {
+    close()
+  }
+})
+
+const { activate, deactivate } = useFocusTrap(contentRef, isOpen)
+
+useBodyScrollLock(isOpen)
 </script>
 
 <template>

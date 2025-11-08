@@ -1,3 +1,14 @@
+<script setup lang="ts">
+// 1. Imports
+import type { CheckboxCheckedProps } from './checkbox-checked.types'
+
+// 2. Props
+withDefaults(defineProps<CheckboxCheckedProps>(), {
+  size: 24,
+  color: 'currentColor',
+})
+</script>
+
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" :width="size" :height="size" viewBox="0 0 24 24" :fill="color">
     <g clip-path="url(#clip0_4418_8600)">
@@ -13,15 +24,3 @@
     </defs>
   </svg>
 </template>
-
-<script setup lang="ts">
-export interface CheckboxCheckedProps {
-  size?: number | string
-  color?: string
-}
-
-withDefaults(defineProps<CheckboxCheckedProps>(), {
-  size: 24,
-  color: 'currentColor',
-})
-</script>

@@ -1,30 +1,13 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import type { DropdownProps, DropdownItem } from './dropdown.types'
 import Popover from '../popover/popover.vue'
 import { useKeyboardNavigation } from '@/composables/useKeyboardNavigation'
 import {
   getDropdownTriggerClasses,
   getDropdownItemClasses,
   dropdownStyles,
-  type DropdownSize,
-  type DropdownVariant,
 } from '@/theme/dropdown'
-
-export interface DropdownItem {
-  value: string
-  label: string
-  disabled?: boolean
-}
-
-export interface DropdownProps {
-  items: DropdownItem[]
-  modelValue?: string
-  placeholder?: string
-  disabled?: boolean
-  size?: DropdownSize
-  variant?: DropdownVariant
-  placement?: 'top' | 'bottom'
-}
 
 const props = withDefaults(defineProps<DropdownProps>(), {
   modelValue: undefined,
@@ -40,10 +23,8 @@ const emit = defineEmits<{
   change: [value: string]
 }>()
 
-// Popover state
 const isOpen = ref(false)
 
-// Selected value
 const selectedValue = computed({
   get: () => props.modelValue,
   set: value => {
@@ -54,45 +35,37 @@ const selectedValue = computed({
   },
 })
 
-// Display value
 const displayValue = computed(() => {
   const selectedItem = props.items.find(item => item.value === selectedValue.value)
   return selectedItem?.label
 })
 
-// Item selection
+const triggerClasses = computed(() => getDropdownTriggerClasses(props.size, props.variant))
+
+const placeholderClasses = computed(() => {
+  return displayValue.value ? '' : dropdownStyles.placeholder
+})
+
+const iconClasses = computed(() => {
+  return [dropdownStyles.icon, isOpen.value ? 'rotate-180' : ''].join(' ')
+})
+
 const selectItem = (item: DropdownItem) => {
   if (item.disabled) return
   selectedValue.value = item.value
   isOpen.value = false
 }
 
-// Check if item is selected
 const isSelected = (item: DropdownItem) => {
   return item.value === selectedValue.value
 }
 
-// Keyboard navigation
-const itemsRef = computed(() => props.items)
-const { highlightedIndex, handleKeydown, setHighlightedIndex } = useKeyboardNavigation(itemsRef, selectItem, isOpen)
-
-// Get item classes
 const getItemClasses = (item: DropdownItem, index: number) => {
   return getDropdownItemClasses(isSelected(item), highlightedIndex.value === index, item.disabled || false, props.size)
 }
 
-// Trigger classes
-const triggerClasses = computed(() => getDropdownTriggerClasses(props.size, props.variant))
-
-// Placeholder classes
-const placeholderClasses = computed(() => {
-  return displayValue.value ? '' : dropdownStyles.placeholder
-})
-
-// Icon classes
-const iconClasses = computed(() => {
-  return [dropdownStyles.icon, isOpen.value ? 'rotate-180' : ''].join(' ')
-})
+const itemsRef = computed(() => props.items)
+const { highlightedIndex, handleKeydown, setHighlightedIndex } = useKeyboardNavigation(itemsRef, selectItem, isOpen)
 </script>
 
 <template>
