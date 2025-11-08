@@ -54,8 +54,14 @@ const showContent = computed(() => shouldRender.value && !isAnimating.value && i
 watch(isOpen, (newValue, oldValue) => {
   if (newValue) {
     shouldRender.value = true
-    isAnimating.value = false
+    isAnimating.value = true
     emit('open')
+    // Use double rAF to ensure browser has painted the initial state
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        isAnimating.value = false
+      })
+    })
   } else if (oldValue) {
     isAnimating.value = true
     emit('close')
@@ -108,7 +114,9 @@ const handleKeydown = (event: KeyboardEvent) => {
         :class="dialogStyles.backdrop"
         :style="{
           opacity: showContent ? '1' : '0',
-          transition: 'opacity 0.15s ease-out',
+          transition: showContent
+            ? 'opacity 0.15s cubic-bezier(0, 0, 0.2, 1)'
+            : 'opacity 0.15s cubic-bezier(0.4, 0, 1, 1)',
         }"
       />
 
@@ -124,7 +132,9 @@ const handleKeydown = (event: KeyboardEvent) => {
             :style="{
               opacity: showContent ? '1' : '0',
               transform: showContent ? 'scale(1)' : 'scale(0.95)',
-              transition: 'opacity 0.15s ease-out, transform 0.15s ease-out',
+              transition: showContent
+                ? 'opacity 0.15s cubic-bezier(0, 0, 0.2, 1), transform 0.15s cubic-bezier(0, 0, 0.2, 1)'
+                : 'opacity 0.15s cubic-bezier(0.4, 0, 1, 1), transform 0.15s cubic-bezier(0.4, 0, 1, 1)',
             }"
           >
             <slot :close="close" />

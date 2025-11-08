@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
-import Dialog from './Dialog.vue'
-import DialogHeader from './DialogHeader.vue'
-import DialogBody from './DialogBody.vue'
-import DialogFooter from './DialogFooter.vue'
-import DialogProvider from './DialogProvider.vue'
+import Dialog from './dialog.vue'
+import DialogHeader from './dialog-header.vue'
+import DialogBody from './dialog-body.vue'
+import DialogFooter from './dialog-footer.vue'
+import DialogProvider from './dialog-provider.vue'
 import { useDialog } from '../../composables/useDialog'
 import { ref, defineComponent } from 'vue'
 
@@ -81,43 +81,50 @@ export const Sizes: Story = {
   render: () => ({
     components: { Dialog, DialogHeader, DialogBody, DialogFooter },
     setup() {
-      const openDialog = ref<string | null>(null)
-      return { openDialog }
+      const isOpen = ref(false)
+      const currentSize = ref<'sm' | 'md' | 'lg' | 'xl'>('md')
+
+      const openDialogWithSize = (size: 'sm' | 'md' | 'lg' | 'xl') => {
+        currentSize.value = size
+        isOpen.value = true
+      }
+
+      return { isOpen, currentSize, openDialogWithSize }
     },
     template: `
       <div class="flex gap-3">
         <button
-          @click="openDialog = 'sm'"
+          @click="openDialogWithSize('sm')"
           class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
         >
           Small
         </button>
         <button
-          @click="openDialog = 'md'"
+          @click="openDialogWithSize('md')"
           class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
         >
           Medium
         </button>
         <button
-          @click="openDialog = 'lg'"
+          @click="openDialogWithSize('lg')"
           class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
         >
           Large
         </button>
         <button
-          @click="openDialog = 'xl'"
+          @click="openDialogWithSize('xl')"
           class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
         >
           Extra Large
         </button>
 
-        <Dialog v-model:open="openDialog" :size="openDialog || 'md'">
+        <Dialog v-model:open="isOpen" :size="currentSize">
           <template #default="{ close }">
             <DialogHeader @close="close">
-              {{ openDialog?.toUpperCase() }} Dialog
+              {{ currentSize.toUpperCase() }} Dialog
             </DialogHeader>
             <DialogBody>
-              <p>This is a {{ openDialog }} sized dialog.</p>
+              <p>This is a {{ currentSize }} sized dialog.</p>
             </DialogBody>
             <DialogFooter>
               <button

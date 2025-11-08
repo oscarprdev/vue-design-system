@@ -1,6 +1,6 @@
 import type { App, Component } from 'vue'
 import { useDialog, type DialogOptions } from '../composables/useDialog'
-import DialogProvider from '../components/dialog/DialogProvider.vue'
+import DialogProvider from '../components/dialog/dialog-provider.vue'
 
 export interface DialogPlugin {
   open: (component: Component, options?: DialogOptions) => void
