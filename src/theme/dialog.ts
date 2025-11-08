@@ -1,11 +1,11 @@
 export type DialogSize = 'sm' | 'md' | 'lg' | 'xl' | 'full'
 
 export const dialogStyles = {
-  backdrop: 'fixed inset-0 z-[1500] bg-black/50',
+  backdrop: 'fixed inset-0 z-[1500] bg-black/40',
   container: 'fixed inset-0 z-[1500] overflow-y-auto',
   wrapper: 'min-h-full flex items-center justify-center p-4',
   content: {
-    base: 'relative bg-white rounded-xl shadow-2xl w-full',
+    base: 'relative bg-white rounded-xl shadow-xl w-full',
     sizes: {
       sm: 'max-w-sm',
       md: 'max-w-md',
@@ -14,11 +14,11 @@ export const dialogStyles = {
       full: 'max-w-full mx-4',
     },
   },
-  header: 'flex items-center justify-between px-6 py-4 border-b border-gray-200',
-  title: 'text-lg font-semibold text-gray-900',
-  closeButton: 'text-gray-400 hover:text-gray-600 transition-colors rounded-lg p-1 hover:bg-gray-100',
-  body: 'px-6 py-4 text-gray-700',
-  footer: 'flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200',
+  header: 'flex items-center justify-between px-6 py-4 border-b border-neutral-200',
+  title: 'text-lg font-semibold text-neutral-900',
+  closeButton: 'text-neutral-400 hover:text-neutral-600 transition-colors rounded-lg p-1.5 hover:bg-neutral-100',
+  body: 'px-6 py-5 text-neutral-700 text-sm leading-relaxed',
+  footer: 'flex items-center justify-end gap-3 px-6 py-4 border-t border-neutral-200 bg-neutral-50',
 }
 
 export function getDialogClasses(size: DialogSize = 'md'): string {

@@ -1,9 +1,9 @@
 export const breadcrumbStyles = {
   container: 'flex items-center gap-2 text-sm',
-  item: 'text-gray-600 hover:text-gray-900 transition-colors cursor-pointer',
-  currentItem: 'text-gray-900 font-medium',
-  separator: 'text-gray-400',
-  ellipsis: 'text-gray-400',
+  item: 'text-neutral-600 hover:text-neutral-900 transition-colors cursor-pointer hover:underline',
+  currentItem: 'text-neutral-900 font-medium',
+  separator: 'text-neutral-400',
+  ellipsis: 'text-neutral-400',
 }
 
 /**

@@ -1,7 +1,7 @@
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
 
 export const avatarStyles = {
-  base: 'inline-flex items-center justify-center rounded-full overflow-hidden bg-gray-200 text-gray-700 font-medium select-none',
+  base: 'inline-flex items-center justify-center rounded-full overflow-hidden bg-neutral-200 text-neutral-700 font-medium select-none',
 
   sizes: {
     sm: 'w-8 h-8 text-xs',

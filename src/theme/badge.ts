@@ -1,32 +1,32 @@
 export type BadgeVariant = 'default' | 'success' | 'error' | 'warning' | 'info' | 'primary'
 
 export const badgeStyles = {
-  base: 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium',
+  base: 'inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-xs font-medium transition-colors duration-150',
 
   variants: {
     default: {
-      solid: 'bg-gray-100 text-gray-800',
-      outline: 'border border-gray-300 text-gray-700 bg-transparent',
+      solid: 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200',
+      outline: 'border border-neutral-200 text-neutral-600 bg-white hover:bg-neutral-50',
     },
     primary: {
-      solid: 'bg-primary-100 text-primary-800',
-      outline: 'border border-primary-600 text-primary-700 bg-transparent',
+      solid: 'bg-primary-50 text-primary-700 hover:bg-primary-100',
+      outline: 'border border-primary-200 text-primary-700 bg-white hover:bg-primary-50',
     },
     success: {
-      solid: 'bg-success-100 text-success-800',
-      outline: 'border border-success-600 text-success-700 bg-transparent',
+      solid: 'bg-success-50 text-success-700 hover:bg-success-100',
+      outline: 'border border-success-200 text-success-700 bg-white hover:bg-success-50',
     },
     error: {
-      solid: 'bg-error-100 text-error-800',
-      outline: 'border border-error-600 text-error-700 bg-transparent',
+      solid: 'bg-error-50 text-error-700 hover:bg-error-100',
+      outline: 'border border-error-200 text-error-700 bg-white hover:bg-error-50',
     },
     warning: {
-      solid: 'bg-warning-100 text-warning-800',
-      outline: 'border border-warning-600 text-warning-700 bg-transparent',
+      solid: 'bg-warning-50 text-warning-700 hover:bg-warning-100',
+      outline: 'border border-warning-200 text-warning-700 bg-white hover:bg-warning-50',
     },
     info: {
-      solid: 'bg-info-100 text-info-800',
-      outline: 'border border-info-600 text-info-700 bg-transparent',
+      solid: 'bg-info-50 text-info-700 hover:bg-info-100',
+      outline: 'border border-info-200 text-info-700 bg-white hover:bg-info-50',
     },
   } as Record<BadgeVariant, { solid: string; outline: string }>,
 

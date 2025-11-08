@@ -3,7 +3,7 @@ export const checkboxStyles = {
 
   input: 'sr-only',
 
-  customCheckbox: 'flex items-center justify-center w-6 h-6 shrink-0',
+  customCheckbox: 'flex items-center justify-center w-5 h-5 shrink-0',
 
-  label: 'text-sm font-medium text-gray-900 select-none',
+  label: 'text-sm font-medium text-neutral-700 select-none',
 }

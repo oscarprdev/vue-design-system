@@ -1,10 +1,10 @@
 export type AlertVariant = 'default' | 'success' | 'warning' | 'error' | 'info'
 
 export const alertStyles = {
-  base: 'rounded-lg p-4 flex gap-3 border shadow-sm',
+  base: 'rounded-lg p-4 flex gap-3 border',
 
   variants: {
-    default: 'bg-gray-50 text-gray-900 border-gray-200',
+    default: 'bg-neutral-50 text-neutral-900 border-neutral-200',
     success: 'bg-success-50 text-success-900 border-success-200',
     warning: 'bg-warning-50 text-warning-900 border-warning-200',
     error: 'bg-error-50 text-error-900 border-error-200',
@@ -14,7 +14,7 @@ export const alertStyles = {
   icon: {
     base: 'flex-shrink-0 w-5 h-5 mt-0.5',
     variants: {
-      default: 'text-gray-600',
+      default: 'text-neutral-600',
       success: 'text-success-600',
       warning: 'text-warning-600',
       error: 'text-error-600',
@@ -26,7 +26,7 @@ export const alertStyles = {
 
   title: 'font-semibold text-sm mb-1',
 
-  description: 'text-sm opacity-90',
+  description: 'text-sm opacity-90 leading-relaxed',
 }
 
 /**
