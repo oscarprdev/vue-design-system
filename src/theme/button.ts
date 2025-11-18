@@ -2,7 +2,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'success' | 'error' | 'war
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
 export const buttonStyles = {
-  base: 'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-primary-500/20 disabled:opacity-50 disabled:cursor-not-allowed',
+  base: 'inline-flex items-center justify-center font-medium rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed',
 
   variants: {
     primary: 'bg-primary-600 text-white hover:bg-primary-700 hover:shadow-sm active:bg-primary-800 active:scale-[0.98]',

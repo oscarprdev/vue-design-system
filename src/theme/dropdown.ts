@@ -2,7 +2,7 @@ export type DropdownSize = 'sm' | 'md' | 'lg'
 export type DropdownVariant = 'default' | 'bordered'
 
 export const dropdownStyles = {
-  container: 'bg-white rounded-lg border border-neutral-200 shadow-md overflow-hidden w-full',
+  container: 'bg-white rounded-lg border-sm border-gray-200 shadow-sm overflow-hidden w-full',
 
   list: 'max-h-[300px] overflow-y-auto py-1',
 
