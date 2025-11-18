@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import type { DialogProps } from './dialog.types'
-import { useClickOutside } from '../../composables/useClickOutside'
-import { useFocusTrap } from '../../composables/useFocusTrap'
-import { useBodyScrollLock } from '../../composables/useBodyScrollLock'
 import { getDialogClasses, dialogStyles } from '../../theme/dialog'
 
 const props = withDefaults(defineProps<DialogProps>(), {
@@ -19,8 +16,8 @@ const emit = defineEmits<{
 }>()
 
 const internalOpen = ref(props.defaultOpen ?? false)
-const isAnimating = ref(false)
-const contentRef = ref<HTMLElement | null>(null)
+const dialogRef = ref<HTMLDialogElement | null>(null)
+const backdropRef = ref<HTMLElement | null>(null)
 
 const isControlled = computed(() => props.open !== undefined)
 
@@ -34,93 +31,104 @@ const isOpen = computed({
   },
 })
 
-const shouldRender = ref(isOpen.value)
-const showContent = computed(() => shouldRender.value && !isAnimating.value && isOpen.value)
+watch(
+  isOpen,
+  async newValue => {
+    if (!dialogRef.value) return
 
-watch(isOpen, (newValue, oldValue) => {
-  if (newValue) {
-    shouldRender.value = true
-    isAnimating.value = true
-    emit('open')
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        isAnimating.value = false
-      })
-    })
-  } else if (oldValue) {
-    isAnimating.value = true
-    emit('close')
-    setTimeout(() => {
-      shouldRender.value = false
-      isAnimating.value = false
-    }, 150)
-  }
-})
-
-watch(isOpen, open => {
-  if (open) {
-    activate()
-  } else {
-    deactivate()
-  }
-})
+    if (newValue) {
+      dialogRef.value.showModal()
+      emit('open')
+      await nextTick()
+      dialogRef.value.classList.add('dialog-open')
+      if (backdropRef.value) {
+        backdropRef.value.classList.add('backdrop-open')
+      }
+    } else {
+      dialogRef.value.classList.remove('dialog-open')
+      if (backdropRef.value) {
+        backdropRef.value.classList.remove('backdrop-open')
+      }
+      emit('close')
+      setTimeout(() => {
+        if (dialogRef.value) {
+          dialogRef.value.close()
+        }
+      }, 150)
+    }
+  },
+  { immediate: true }
+)
 
 const close = () => {
   isOpen.value = false
 }
 
-const handleKeydown = (event: KeyboardEvent) => {
-  if (event.key === 'Escape' && props.closeOnEscape) {
+const handleCancel = (event: Event) => {
+  if (!props.closeOnEscape) {
+    event.preventDefault()
+  } else {
     close()
   }
 }
 
-useClickOutside(contentRef, () => {
-  if (props.closeOnClickOutside && isOpen.value) {
+const handleClick = (event: MouseEvent) => {
+  if (!props.closeOnClickOutside || !dialogRef.value) return
+
+  const rect = dialogRef.value.getBoundingClientRect()
+  const isInDialog =
+    event.clientX >= rect.left &&
+    event.clientX <= rect.right &&
+    event.clientY >= rect.top &&
+    event.clientY <= rect.bottom
+
+  if (!isInDialog) {
     close()
   }
-})
-
-const { activate, deactivate } = useFocusTrap(contentRef, isOpen)
-
-useBodyScrollLock(isOpen)
+}
 </script>
 
 <template>
   <Teleport to="body">
-    <div v-if="shouldRender" @keydown="handleKeydown">
-      <!-- Backdrop -->
-      <div
-        :class="dialogStyles.backdrop"
-        :style="{
-          opacity: showContent ? '1' : '0',
-          transition: showContent
-            ? 'opacity 0.15s cubic-bezier(0, 0, 0.2, 1)'
-            : 'opacity 0.15s cubic-bezier(0.4, 0, 1, 1)',
-        }"
-      />
+    <!-- Backdrop -->
+    <div v-if="isOpen" ref="backdropRef" :class="dialogStyles.backdrop" />
 
-      <!-- Dialog Container -->
-      <div :class="dialogStyles.container">
-        <div :class="dialogStyles.wrapper">
-          <!-- Dialog Content -->
-          <div
-            ref="contentRef"
-            role="dialog"
-            aria-modal="true"
-            :class="getDialogClasses(size)"
-            :style="{
-              opacity: showContent ? '1' : '0',
-              transform: showContent ? 'scale(1)' : 'scale(0.95)',
-              transition: showContent
-                ? 'opacity 0.15s cubic-bezier(0, 0, 0.2, 1), transform 0.15s cubic-bezier(0, 0, 0.2, 1)'
-                : 'opacity 0.15s cubic-bezier(0.4, 0, 1, 1), transform 0.15s cubic-bezier(0.4, 0, 1, 1)',
-            }"
-          >
-            <slot :close="close" />
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Native Dialog -->
+    <dialog ref="dialogRef" :class="getDialogClasses(size)" @cancel="handleCancel" @click="handleClick">
+      <slot :close="close" />
+    </dialog>
   </Teleport>
 </template>
+
+<style scoped>
+dialog {
+  border: none;
+  padding: 0;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  opacity: 0;
+  transform: scale(0.95);
+  transition:
+    opacity 0.15s cubic-bezier(0.4, 0, 1, 1),
+    transform 0.15s cubic-bezier(0.4, 0, 1, 1),
+    overlay 0.15s allow-discrete,
+    display 0.15s allow-discrete;
+}
+
+dialog.dialog-open {
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.15s cubic-bezier(0, 0, 0.2, 1),
+    transform 0.15s cubic-bezier(0, 0, 0.2, 1);
+}
+
+dialog::backdrop {
+  background: transparent;
+}
+
+.backdrop-open {
+  opacity: 1 !important;
+  transition: opacity 0.15s cubic-bezier(0, 0, 0.2, 1) !important;
+}
+</style>
