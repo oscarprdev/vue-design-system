@@ -173,15 +173,18 @@
   --radius-3xl: 2rem; /* 32px */
   --radius-full: 9999px;
 
-  /* Border Widths */
+  /* Border Widths - Tailwind v4 compatible */
+  --border-width: 1px; /* default */
   --border-width-0: 0px;
-  --border-width-1: 1px;
-  --border-width-2: 2px;
-  --border-width-4: 4px;
-  --border-width-8: 8px;
+  --border-width-xs: 0.5px;
+  --border-width-sm: 1px;
+  --border-width-md: 1.5px;
+  --border-width-lg: 2px;
+  --border-width-xl: 3px;
+  --border-width-2xl: 4px;
 
   /* Default Border */
-  --border-default: var(--border-width-1) solid var(--color-border);
+  --border-default: var(--border-width-sm) solid var(--color-border);
 
   /* ============================================
      SHADOW SYSTEM - Ultra Subtle (GitBook-style)

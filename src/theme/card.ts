@@ -1,5 +1,6 @@
 export const cardStyles = {
-  container: 'bg-white rounded-xl border border-neutral-200 shadow-xs overflow-hidden transition-shadow duration-150 hover:shadow-sm',
+  container:
+    'bg-white rounded-xl border border-neutral-200 shadow-sm overflow-hidden transition-shadow duration-150 hover:shadow-md',
 
   header: {
     base: 'px-6 py-4',

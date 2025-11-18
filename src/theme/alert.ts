@@ -1,7 +1,7 @@
 export type AlertVariant = 'default' | 'success' | 'warning' | 'error' | 'info'
 
 export const alertStyles = {
-  base: 'rounded-lg p-4 flex gap-3 border',
+  base: 'rounded-lg p-4 flex gap-3 border shadow-sm',
 
   variants: {
     default: 'bg-neutral-50 text-neutral-900 border-neutral-200',

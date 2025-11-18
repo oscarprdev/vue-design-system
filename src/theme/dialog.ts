@@ -1,11 +1,9 @@
 export type DialogSize = 'sm' | 'md' | 'lg' | 'xl' | 'full'
 
 export const dialogStyles = {
-  backdrop: 'fixed inset-0 z-[1500] bg-black/40',
-  container: 'fixed inset-0 z-[1500] overflow-y-auto',
-  wrapper: 'min-h-full flex items-center justify-center p-4',
-  content: {
-    base: 'relative bg-white rounded-xl shadow-xl w-full',
+  backdrop: 'fixed inset-0 z-[1500] bg-black/40 opacity-0 transition-opacity duration-150',
+  dialog: {
+    base: 'relative bg-white rounded-xl shadow-xl w-full m-auto',
     sizes: {
       sm: 'max-w-sm',
       md: 'max-w-md',
@@ -22,7 +20,7 @@ export const dialogStyles = {
 }
 
 export function getDialogClasses(size: DialogSize = 'md'): string {
-  return `${dialogStyles.content.base} ${dialogStyles.content.sizes[size]}`
+  return `${dialogStyles.dialog.base} ${dialogStyles.dialog.sizes[size]}`
 }
 
 export function getDialogHeaderClasses(): string {

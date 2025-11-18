@@ -10,14 +10,15 @@ export const buttonStyles = {
     success: 'bg-success-600 text-white hover:bg-success-700 hover:shadow-sm active:bg-success-800 active:scale-[0.98]',
     error: 'bg-error-600 text-white hover:bg-error-700 hover:shadow-sm active:bg-error-800 active:scale-[0.98]',
     warning: 'bg-warning-600 text-white hover:bg-warning-700 hover:shadow-sm active:bg-warning-800 active:scale-[0.98]',
-    outline: 'border border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50 hover:border-neutral-300 active:bg-neutral-100',
+    outline:
+      'border border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50 hover:border-neutral-300 active:bg-neutral-100',
     ghost: 'text-neutral-700 hover:bg-neutral-100 hover:text-neutral-900 active:bg-neutral-200',
   } as Record<ButtonVariant, string>,
 
   sizes: {
-    sm: 'h-8 px-3 text-sm gap-1.5 rounded-md',
-    md: 'h-10 px-4 text-sm gap-2 rounded-lg',
-    lg: 'h-11 px-5 text-base gap-2 rounded-lg',
+    sm: 'h-8 px-3 text-sm gap-1.5',
+    md: 'h-10 px-4 text-sm gap-2',
+    lg: 'h-11 px-5 text-base gap-2',
   } as Record<ButtonSize, string>,
 }
 

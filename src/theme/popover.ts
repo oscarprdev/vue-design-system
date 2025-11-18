@@ -1,5 +1,5 @@
 export const popoverStyles = {
-  base: 'absolute z-50 bg-white rounded-lg border border-neutral-200 shadow-md',
+  base: 'absolute z-50 bg-white rounded-lg border border-neutral-200 shadow-sm ',
   content: 'p-4 text-sm text-neutral-700',
 }
 
