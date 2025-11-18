@@ -3,11 +3,7 @@ import { ref, computed } from 'vue'
 import type { DropdownProps, DropdownItem } from './dropdown.types'
 import Popover from '../popover/popover.vue'
 import { useKeyboardNavigation } from '@/composables/useKeyboardNavigation'
-import {
-  getDropdownTriggerClasses,
-  getDropdownItemClasses,
-  dropdownStyles,
-} from '@/theme/dropdown'
+import { getDropdownTriggerClasses, getDropdownItemClasses, dropdownStyles } from '@/theme/dropdown'
 
 const props = withDefaults(defineProps<DropdownProps>(), {
   modelValue: undefined,
@@ -95,46 +91,27 @@ const { highlightedIndex, handleKeydown, setHighlightedIndex } = useKeyboardNavi
     </template>
 
     <template #content>
-      <div :class="dropdownStyles.container">
-        <ul
-          :class="dropdownStyles.list"
-          role="listbox"
-          :aria-activedescendant="highlightedIndex !== -1 ? `item-${highlightedIndex}` : undefined"
-          @keydown="handleKeydown"
-          tabindex="0"
+      <ul
+        :class="dropdownStyles.container"
+        role="listbox"
+        :aria-activedescendant="highlightedIndex !== -1 ? `item-${highlightedIndex}` : undefined"
+        @keydown="handleKeydown"
+        tabindex="0"
+      >
+        <li
+          v-for="(item, index) in items"
+          :key="item.value"
+          :id="`item-${index}`"
+          :class="getItemClasses(item, index)"
+          :aria-selected="isSelected(item)"
+          :aria-disabled="item.disabled"
+          role="option"
+          @click="selectItem(item)"
+          @mouseenter="setHighlightedIndex(index)"
         >
-          <li
-            v-for="(item, index) in items"
-            :key="item.value"
-            :id="`item-${index}`"
-            :class="getItemClasses(item, index)"
-            :aria-selected="isSelected(item)"
-            :aria-disabled="item.disabled"
-            role="option"
-            @click="selectItem(item)"
-            @mouseenter="setHighlightedIndex(index)"
-          >
-            <span>{{ item.label }}</span>
-            <svg
-              v-if="isSelected(item)"
-              class="ml-auto"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M13.3333 4L6 11.3333L2.66667 8"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </li>
-        </ul>
-      </div>
+          <span>{{ item.label }}</span>
+        </li>
+      </ul>
     </template>
   </Popover>
 </template>

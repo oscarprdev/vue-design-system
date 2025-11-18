@@ -2,12 +2,11 @@ export type DropdownSize = 'sm' | 'md' | 'lg'
 export type DropdownVariant = 'default' | 'bordered'
 
 export const dropdownStyles = {
-  container: 'bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden w-full',
-
-  list: 'max-h-[300px] overflow-y-auto py-1',
+  container:
+    'max-h-[300px] overflow-y-auto p-1 gap-1 bg-white rounded-lg border border-neutral-200 shadow-sm overflow-hidden w-full',
 
   item: {
-    base: 'flex items-center gap-2 py-2 cursor-pointer transition-colors duration-150 text-sm text-neutral-700',
+    base: 'flex rounded-md items-center gap-2 py-2 cursor-pointer transition-colors duration-150 text-sm text-neutral-700',
     hover: 'hover:bg-neutral-100',
     selected: 'bg-primary-50 text-primary-700 font-medium',
     highlighted: 'bg-neutral-50',
@@ -20,7 +19,7 @@ export const dropdownStyles = {
   },
 
   trigger: {
-    base: 'inline-flex items-center justify-between gap-2 font-medium rounded-lg transition-all duration-150 focus:outline-none border bg-white disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-primary-500/20',
+    base: 'inline-flex items-center justify-between gap-2 font-medium rounded-full transition-all duration-150 focus:outline-none border bg-white disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-primary-500/20',
     sizes: {
       sm: 'h-8 px-3 text-sm',
       md: 'h-10 px-3 text-sm',
